@@ -26,6 +26,20 @@
 <body>
 
     <div class="container">
+        <div class="company">
+            @if(!is_null($imagename))
+            <h3>
+                Company Logo:
+                <img src="{{ public_path('uploads/images/'.$imagename) }}" height="100px" />
+            </h3>
+            @endif
+            <p>Company Address: {{ $company_address }}</p>
+        </div>
+        <div class="client">
+            <h3>Client name: {{ $client_name }}</h3>
+            <p>Client Address: {{ $client_address }}</p>
+
+        </div>
         <div class="table">
             <table>
                 <tr>
@@ -66,20 +80,7 @@
                 <h3>Total Cost: {{ $total_cost_of_project }} $</h3>
             </div>
 
-            <div class="company">
-                @if(!is_null($imagename))
-                <h3>
-                    Company Logo:
-                    <img src="{{ public_path('uploads/images/'.$imagename) }}" height="100px" />
-                </h3>
-                @endif
-                <p>Company Address: {{ $company_address }}</p>
-            </div>
-            <div class="client">
-                <h3>Client name: {{ $client_name }}</h3>
-                <p>Client Address: {{ $client_address }}</p>
 
-            </div>
         </div>
     </div>
 
