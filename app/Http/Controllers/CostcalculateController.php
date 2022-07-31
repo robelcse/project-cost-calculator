@@ -35,23 +35,20 @@ class CostcalculateController extends Controller
             foreach ($arr_of_items as $items) {
                 $sum += $items[1];
             }
-            $total_cost_of_project = $total_cost + $sum;
-            $total_cost_of_project = $this->calculateVatWithCost($total_cost_of_project, $vat);
+            $total_cost = $total_cost + $sum;
+            $total_cost_of_project = $this->calculateCostWithVat($total_cost, $vat);
         } else {
-            $total_cost_of_project = $total_cost;
-            $total_cost_of_project = $this->calculateVatWithCost($total_cost_of_project, $vat);
+            $total_cost_of_project = $this->calculateCostWithVat($total_cost, $vat);
         }
-
 
         if ($request->hasFile('image')) {
             $imagename = $this->imageUpload($request);
         }
 
-
         $data = $this->makeArrOfData($user_inputs, $total_cost_of_project, $arr_of_items, $imagename);
         $pdf  = App::make('dompdf.wrapper');
         $pdf  = Pdf::loadView('pdf_result', $data);
-        return $pdf->stream();
+        return $pdf->stream('cost-calculation-result.pdf');
     }
 
     protected function sumOfCost($request)
@@ -120,7 +117,7 @@ class CostcalculateController extends Controller
         return $imagename;
     }
 
-    protected function calculateVatWithCost($cost, $vat)
+    protected function calculateCostWithVat($cost, $vat)
     {
         $tex = $vat / 100;
         return $cost + $cost * $tex;

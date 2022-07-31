@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[CostcalculateController::class,'index']);
-Route::post('generate-pdf', [CostcalculateController::class, 'costCalculate']);
+Route::post('cost-calculation-pdf', [CostcalculateController::class, 'costCalculate'])->name('cost-calculator');
  

@@ -26,7 +26,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <form action="{{ url('generate-pdf') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ url('cost-calculation-pdf') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <div class="row" id="costInputSection">
@@ -99,8 +99,8 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-default pull-right" id="addItem">Add more item</button>
-                                <button type="submit" class="btn btn-default">Calculate</button>
+                                <button type="button" class="btn btn-info pull-right" id="addMoreItem">Add more item</button>
+                                <button type="submit" class="btn btn-success">Calculate</button>
                             </form>
                         </div>
                     </div>
@@ -110,13 +110,12 @@
     </div>
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
-            console.log('DOM fully loaded and parsed');
 
             let costInputSection = document.getElementById("costInputSection");
-            let addItem = document.getElementById("addItem");
+            let addMoreItem = document.getElementById("addMoreItem");
 
             var itemNumber = 0;
-            addItem.addEventListener("click", function(e) {
+            addMoreItem.addEventListener("click", function(e) {
                 event.preventDefault();
 
                 itemNumber++;
@@ -130,19 +129,15 @@
                 var fieldName = createLabel('Field Name')
                 var fieldValue = createLabel('Field Value')
 
-
                 appendChildintoParent(div1, fieldName)
                 appendChildintoParent(div2, fieldValue)
 
                 appendChildintoParent(div1, input1)
                 appendChildintoParent(div2, input2)
 
-
                 costInputSection.appendChild(div1)
                 costInputSection.appendChild(div2)
-
             })
-
 
             function createDivElement() {
                 let div = document.createElement("div")
@@ -155,7 +150,6 @@
                 input.setAttribute("type", `${type}`)
                 input.classList.add("form-control")
                 input.setAttribute("name", `items${itemNumber}[]`)
-
                 return input;
             }
 
@@ -169,7 +163,6 @@
             function appendChildintoParent(parent, children) {
                 parent.appendChild(children)
             }
-
         });
     </script>
 </body>
